@@ -1,11 +1,13 @@
-
 public class RadixSort {
     public static void radixSort(Integer[] array) {
         int maxNumber = findMax(array);
         int maxDigits = countDigits(maxNumber);
 
         for (int place = 1; place <= maxDigits; place++) {
+            System.out.println("Sorting by place: " + place);
             array = countingSortByDigit(array, place);
+            System.out.println("Array after sorting by place: " + place);
+            displayArray(array);
         }
     }
 
@@ -27,7 +29,10 @@ public class RadixSort {
     // Logarithmic calculations are constant time operations for integers
     // Big-O: O(1)
     private static int countDigits(int number) {
-        return (int) Math.log10(number);
+        if (number == 0) {
+            return 1;
+        }
+        return (int) Math.log10(number) + 1;
     }
 
     // countingSortByDigit will sort the array based on the place value of the numbers (ones, tens, hundreds, etc.)
@@ -57,7 +62,7 @@ public class RadixSort {
         }
 
         System.arraycopy(sortedArray, 0, array, 0, n);
-        return sortedArray;
+        return array;
     }
 
     private static int getDigit(int number, int place) {
@@ -76,7 +81,7 @@ public class RadixSort {
         displayArray(array);
     }
 
-    private static void displayArray(Integer[] array) {
+    public static void displayArray(Integer[] array) {
         for (int num : array) {
             System.out.print(num + " ");
         }
